@@ -1,0 +1,19 @@
+from pydantic import BaseModel, Field, ConfigDict, BeforeValidator
+from typing import Optional, Annotated
+from datetime import datetime, timezone
+
+# PyObjectId automatically converts the MongoDB ObjectId object into a string for Pydantic.
+PyObjectId = Annotated[str, BeforeValidator(str)]
+
+def get_utc_now():
+    return datetime.now(timezone.utc)
+
+class UserModel(BaseModel):
+    id: Optional[PyObjectId] = Field(alias="_id", default=None)
+    username: str
+    password: str # Hashed password
+    profilePicture: Optional[str] = None
+    bio: Optional[str] = None
+    createdAt: datetime = Field(default_factory=get_utc_now)
+
+    model_config = ConfigDict(populate_by_name=True)
