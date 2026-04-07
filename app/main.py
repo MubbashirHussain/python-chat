@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes.auth import router as auth_router
+from app.routes import router as app_router
 
 app = FastAPI(
     title="Chat App Backend",
     description="Backend for the real-time chat application",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # CORS configuration (Crucial for SSR Integration)
@@ -17,9 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router)
+app.include_router(app_router)
 
 from app.utils.responses import res_success
+
 
 @app.get("/")
 async def root():

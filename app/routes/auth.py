@@ -1,20 +1,9 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter
 from pydantic import BaseModel
-from app.utils.security import (
-    get_password_hash,
-    verify_password,
-    create_access_token,
-    ACCESS_TOKEN_EXPIRE_MINUTES,
-)
-from app.config.database import user_collection
-from app.models.user import UserModel
-from datetime import timedelta, datetime, timezone
-from app.utils.responses import res_created, res_success_data, res_bad_request
-
-from app.controllers.user import registerController, loginController
+from app.controllers.auth import registerController, loginController
 
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+router = APIRouter(tags=["auth"])
 
 
 class UserRegisterRequest(BaseModel):
