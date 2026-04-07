@@ -9,6 +9,8 @@ router = APIRouter(tags=["auth"])
 class UserRegisterRequest(BaseModel):
     username: str
     password: str
+    name: str
+    email: str
     profilePicture: str | None = None
     bio: str | None = None
 

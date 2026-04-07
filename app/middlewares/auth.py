@@ -31,7 +31,7 @@ async def verifyToken(
     # Find the user by ID in MongoDB
     try:
         user = await user_collection.find_one(
-            {"_id": ObjectId(user_id)}, {"password": 0}
+            {"_id": ObjectId(user_id), "isDeleted": False}, {"password": 0}
         )
         if user is None:
             raise credentials_exception
