@@ -1,12 +1,18 @@
-from app.utils.responses import res_created, res_success_data, res_bad_request
+import app.utils.responses as res
 from app.services.auth import registerService, loginService
 
 
 async def registerController(user):
-    result = await registerService(user)
-    return result
+    try:
+        result = await registerService(user)
+        return result
+    except Exception as e:
+        return res.res_error(str(e))
 
 
 async def loginController(user):
-    result = await loginService(user)
-    return result
+    try:
+        result = await loginService(user)
+        return result
+    except Exception as e:
+        return res.res_error(str(e))
