@@ -15,13 +15,13 @@ class UserModel(BaseModel):
     name: str
     email: str
     status: str
-    isVerified: bool = False
-    isOnline: bool = False
+    isVerified: bool = Field(default=False)
+    isOnline: bool = Field(default=False)
     username: str
     password: str  # Hashed password
     profilePicture: Optional[str] = None
     bio: Optional[str] = None
-    isDeleted: bool = False
+    isDeleted: bool = Field(default=False)
     updatedAt: datetime = Field(default_factory=get_utc_now)
     createdAt: datetime = Field(default_factory=get_utc_now)
 

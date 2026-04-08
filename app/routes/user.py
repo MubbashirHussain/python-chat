@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, Form, UploadFile
 from pydantic import BaseModel
 import app.controllers.user as UserController
 from app.middlewares.auth import verifyToken
+from typing import Optional
 
 router = APIRouter(tags=["user"])
 
@@ -18,5 +19,17 @@ async def getMe(user=Depends(verifyToken)):
 
 
 @router.patch("/me")
-async def updateMe(body: updateMeBody, user=Depends(verifyToken)):
+async def updateMe(
+    username: Optional[str] = Form(None),
+    name: Optional[str] = Form(None),
+    profilePicture: Optional[UploadFile] = File(None),
+    bio: Optional[str] = Form(None),
+    user=Depends(verifyToken),
+):
+    body = {
+        "username": username,
+        "name": name,
+        "profilePicture": profilePicture,
+        "bio": bio,
+    }
     return await UserController.updateUser(user, body)

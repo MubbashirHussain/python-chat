@@ -22,6 +22,12 @@ async def registerService(user):
         "username": user["username"],
         "password": hashed_password,
         "bio": user["bio"] or None,
+        "name": user["name"] or None,
+        "email": user["email"] or None,
+        "status": "active",
+        "isOnline": False,
+        "isVerified": False,
+        "isDeleted": False,
         "createdAt": datetime.now(timezone.utc).isoformat(),
     }
 
